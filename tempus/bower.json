@@ -1,0 +1,21 @@
+{
+  "name": "tempus",
+  "homepage": "https://nedicode.github.io/tempus/",
+  "authors": [
+    "Николай Федосеев <xneek@mail.ru>"
+  ],
+  "description": "Сервис анализа погоды",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "weather"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
