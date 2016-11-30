@@ -317,8 +317,9 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						for(var i=0; i<result.rows.length; i++){
 							slider.appendChild(new Slide(result.rows[i]))
 						}
-						$(slider).carousel({full_width: true});
 						Content.appendChild(slider)
+						$(slider).carousel({full_width: true});
+						
 					}
 
 				}, app.sqlError);
