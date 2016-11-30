@@ -260,7 +260,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 
 			app.db.transaction(function(tx) {
 				tx.executeSql("SELECT id, name, lat, lon FROM points", [], function(tx, result){
-				app.msg("rows " + result.rows.length)
+				
 					if(result.rows && result.rows.length){
 						app.msg("rows " + result.rows.length)
 						function ColItem(data){
@@ -296,7 +296,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									if(day!=groupName){ list.appendChild( crEl('li',{c:'collection-header'}, crEl('h5', groupName + '. \u00a0', crEl('small', hp.FCTTIME.weekday_name))) ); day = groupName; }
 									list.appendChild(new ColItem(hp))
 								});
-								div.appendChild(list)
+								div.appendChild(crEl('div',{s:'overflow-y:auto; max-height:100%'}, list))
 							}
 						})
 						
