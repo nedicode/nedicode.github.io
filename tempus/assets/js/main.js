@@ -245,7 +245,7 @@
 					if(result.rows && result.rows.length){
 						function Slide(point){
 						
-						$.getJSON('//api.openweathermap.org/data/2.5/weather?units=metric&lat='+point.lat+'&lon='+point.lon+'&cnt=' + 1 + '&APPID=2c7ee5aa0cd9ccedbcb6c836b605c24c&lang=ru', function(w){
+						$.getJSON('//api.openweathermap.org/data/2.5/weather?units=metric&lat='+point.lat+'&lon='+point.lon+'&cnt=' + 1 + '&APPID=cd86e235fc7c0bcac549923298b74a71&lang=ru', function(w){
 						
 							console.info(w)
 						})
