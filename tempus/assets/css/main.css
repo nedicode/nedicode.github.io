@@ -1,0 +1,16 @@
+nav {}
+#footer {
+	position:fixed;
+	bottom:0;
+	left:0;
+	height:40px;
+	width:100%;
+	line-height:40px;
+	background:#f8f8f8;
+	text-align:center;
+}
+
+.editor-toolbar-button {
+	padding:8px;
+	color:inherit;
+}
