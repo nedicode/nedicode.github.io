@@ -234,7 +234,7 @@
 					} else {
 						alert('geolocation is not available')
 					}
-		
+		Work
 		}
 		
 		var slider = crEl('div',{c:'carousel carousel-slider center', d:{indicators:true}});
@@ -243,41 +243,53 @@
 			app.db.transaction(function(tx) {
 				tx.executeSql("SELECT id, name, lat, lon FROM points", [], function(tx, result){
 					if(result.rows && result.rows.length){
+						
+						function ColItem(data){
+							return crEl('li', {c:'collection-item avatar'},
+								crEl('img',{c:'circle', src:data.icon_url}),
+								crEl('span', {c:'title'}, crEl('strong', data.FCTTIME.hour_padded + ':' + data.FCTTIME.min ),' \u00a0 ',crEl('span',data.condition)),
+								crEl('p', 
+									crEl('strong', 't ' + data.temp.metric + '\u00a0°С; ' ),
+									crEl('div',
+										crEl('small','wind:\u00a0'),data.wspd.metric +'\u00a0м/с', '\u00a0', crEl('small', data.wdir.dir ) , '\u00a0',
+										crEl('span',{s:'position:absolute;transform:rotate(' + (data.mslp.degrees-135) + 'deg)'},'➷'),
+										crEl('small','; \u00a0 clouds:\u00a0' + data.sky +'% (' + data.wx +');'),
+										crEl('small', 'himidity: ' + data.humidity +'%; '),
+										crEl('small','h: ' + Math.round(0.75006375541921 * data.mslp.metric) + "мм р.ст.; ") 
+									)
+								)
+							)
+						}
+						
 						function Slide(point){
 							var div = crEl('div',{c:'carousel-item'},
 								crEl('h2', point.name)
 							)
-						$.getJSON('http://api.openweathermap.org/data/2.5/weather', {units:'metric',lat:point.lat, lon: point.lon, APPID:'cd86e235fc7c0bcac549923298b74a71', lang:'ru'}, function(w){
-							if(w && w.weather){
-								div.appendChild(crEl('div',{s:'text-align:left; opacity:0.8'}, crEl('small','openweather')))	
-								div.appendChild(crEl('div', crEl('strong',{c:'text-transform:uppercase'}, w.weather.description)))	
-								div.appendChild(crEl('div', crEl('img',{src:'http://openweathermap.org/img/w/'  + w.weather.icon +  '.png'})))
-								div.appendChild(crEl('div', 
-									crEl('strong', 't ' + w.main.temp + '\u00a0°С; ' ), 
-									crEl('small','h: ' + w.main.humidity + "%; "), 
-									crEl('small','h: ' + Math.round(0.75006375541921 * w.main.pressure) + "мм р.ст.; ") 
-								))								
-								div.appendChild(crEl('div', 
-									crEl('small','wind:\u00a0'),w.wind.speed +'\u00a0м/с', '\u00a0', crEl('small', w.wind.deg+'°') , '\u00a0',crEl('span',{s:'position:absolute;transform:rotate(' + (w.wind.deg-135) + 'deg)'},'➷'),
-									crEl('small',' \u00a0 clouds:\u00a0' + w.clouds.all +'%')
-								))	
+						
+						
+						$.getJSON("//api.wunderground.com/api/5b9d8c009d00057d/hourly/lang:RU/q/" + point.lat + "," + point.lon + ".json", function(w){
+							if( w && w.hourly_forecast ){
+								var list = crEl('ul',{c:'collection with-header'});
+								var day = '';
+						
+								w.hourly_forecast.forEach(function(hp){
+									var groupName = hp.FCTTIME.mday + '\u00a0' + hp.FCTTIME.month_name_abbrev;
+									if(day!=groupName){ list.appendChild( crEl('li',{c:'collection-header'}, crEl('h5', groupName + '. \u00a0', crEl('small', hp.FCTTIME.weekday_name))) ); day = groupName; }
+									list.appendChild(new ColItem(hp))
+								});
 								
-								div.appendChild(crEl('div', 
-									crEl('small','sun:\u00a0', 
-										
-										new Date(w.sys.sunset).toTimeString().substr(0,5), '/',
-										new Date(w.sys.sunrise).toTimeString().substr(0,5)
-									)
-								))	
 							}
 						})
+						
+						//5b9d8c009d00057d wunderground
+						/*
 						$.getJSON('//api.accuweather.com/locations/v1/cities/geoposition/search.json', {q: lat+','+lon, language:'ru', apikey:'QFeewtOzWzhjM1wws1d4eUAP1j9oeKTA'}, function(w){
 							console.info(w)
 						})						
 						$.getJSON('https://api.weather.yandex.ru/v1/forecast', {units:'metric',lat:point.lat, lon: point.lon, extra:'true', lang:'ru'}, function(w){
 							console.info(w)
 						})						
-
+*/
 						
 						
 						
