@@ -263,7 +263,7 @@
 								))	
 								
 								div.appendChild(crEl('div', 
-									crEl('small','sun:\u00a0'), 
+									crEl('small','sun:\u00a0', 
 										
 										new Date(w.sys.sunset).toTimeString().substr(0,5), '/',
 										new Date(w.sys.sunrise).toTimeString().substr(0,5)
