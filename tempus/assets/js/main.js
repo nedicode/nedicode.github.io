@@ -277,7 +277,7 @@
 									if(day!=groupName){ list.appendChild( crEl('li',{c:'collection-header'}, crEl('h5', groupName + '. \u00a0', crEl('small', hp.FCTTIME.weekday_name))) ); day = groupName; }
 									list.appendChild(new ColItem(hp))
 								});
-								
+								div.appendChild(list)
 							}
 						})
 						
@@ -293,7 +293,7 @@
 						
 						
 						
-							return list;
+							return div;
 						}
 						for(var i=0; i<result.rows.length; i++){
 							slider.appendChild(new Slide(result.rows[i]))
