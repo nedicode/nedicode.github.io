@@ -246,7 +246,7 @@
 						
 						function ColItem(data){
 							return crEl('li', {c:'collection-item avatar'},
-								crEl('img',{c:'circle', src:data.icon_url}),
+								crEl('img',{c:'circle', src:data.icon_url.replace(/^http\:/i, 'https:')}),
 								crEl('span', {c:'title'}, crEl('strong', data.FCTTIME.hour_padded + ':' + data.FCTTIME.min ),' \u00a0 ',crEl('span',data.condition)),
 								crEl('p', 
 									crEl('strong', 't ' + data.temp.metric + '\u00a0°С; ' ),
@@ -293,7 +293,7 @@
 						
 						
 						
-							return div;
+							return list;
 						}
 						for(var i=0; i<result.rows.length; i++){
 							slider.appendChild(new Slide(result.rows[i]))
