@@ -244,9 +244,32 @@
 				tx.executeSql("SELECT id, name, lat, lon FROM points", [], function(tx, result){
 					if(result.rows && result.rows.length){
 						function Slide(point){
-						
+							var div = crEl('div',{c:'carousel-item'},
+								crEl('h2', point.name)
+							)
 						$.getJSON('http://api.openweathermap.org/data/2.5/weather', {units:'metric',lat:point.lat, lon: point.lon, APPID:'cd86e235fc7c0bcac549923298b74a71', lang:'ru'}, function(w){
-							console.info(w)
+							if(w && w.weather){
+								div.appendChild(crEl('div',{s:'text-align:left; opacity:0.8'}, crEl('small','openweather')))	
+								div.appendChild(crEl('div', crEl('strong',{c:'text-transform:uppercase'}, w.weather.description)))	
+								div.appendChild(crEl('div', crEl('img',{src:'http://openweathermap.org/img/w/'  + w.weather.icon +  '.png'})))
+								div.appendChild(crEl('div', 
+									crEl('strong', 't ' + w.main.temp + '\u00a0°С; ' ), 
+									crEl('small','h: ' + w.main.humidity + "%; "), 
+									crEl('small','h: ' + Math.round(0.75006375541921 * w.main.pressure) + "мм р.ст.; ") 
+								))								
+								div.appendChild(crEl('div', 
+									crEl('small','wind:\u00a0'),w.wind.speed +'\u00a0м/с', '\u00a0', crEl('small', w.wind.deg+'°') , '\u00a0',crEl('span',{s:'position:absolute;transform:rotate(' + (w.wind.deg-135) + 'deg)'},'➷'),
+									crEl('small',' \u00a0 clouds:\u00a0' + w.clouds.all +'%')
+								))	
+								
+								div.appendChild(crEl('div', 
+									crEl('small','sun:\u00a0'), 
+										
+										new Date(w.sys.sunset).toTimeString().substr(0,5), '/',
+										new Date(w.sys.sunrise).toTimeString().substr(0,5)
+									)
+								))	
+							}
 						})
 						
 						$.getJSON('https://api.weather.yandex.ru/v1/forecast', {units:'metric',lat:point.lat, lon: point.lon, extra:'true', lang:'ru'}, function(w){
@@ -256,9 +279,7 @@
 						
 						
 						
-							return crEl('div',{c:'carousel-item'},
-								crEl('h2', point.name)
-							)
+							return div;
 						}
 						for(var i=0; i<result.rows.length; i++){
 							slider.appendChild(new Slide(result.rows[i]))
