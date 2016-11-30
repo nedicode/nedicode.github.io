@@ -271,7 +271,9 @@
 								))	
 							}
 						})
-						
+						$.getJSON('//api.accuweather.com/locations/v1/cities/geoposition/search.json', {q: lat+','+lon, language:'ru', apikey:'QFeewtOzWzhjM1wws1d4eUAP1j9oeKTA'}, function(w){
+							console.info(w)
+						})						
 						$.getJSON('https://api.weather.yandex.ru/v1/forecast', {units:'metric',lat:point.lat, lon: point.lon, extra:'true', lang:'ru'}, function(w){
 							console.info(w)
 						})						
