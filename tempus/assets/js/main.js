@@ -17,12 +17,30 @@
 			console.log('save')
 		  }
 		});
-		Footer.style.display = 'none'
+		//Footer.style.display = 'none'
 		app.navigate()
 	});
 
 
-window.onerror = function(er){ alert(er)}
+window.onerror = function (msg, url, lineNo, columnNo, error) {
+    var string = msg.toLowerCase();
+    var substring = "script error";
+    if (string.indexOf(substring) > -1){
+        alert('Script Error: See Browser Console for Detail');
+    } else {
+        var message = [
+            'Message: ' + msg,
+            'URL: ' + url,
+            'Line: ' + lineNo,
+            'Column: ' + columnNo,
+            'Error object: ' + JSON.stringify(error)
+        ].join(' - ');
+
+        alert(message);
+    }
+
+    return false;
+};
 
 
 	var app = {
@@ -234,7 +252,7 @@ window.onerror = function(er){ alert(er)}
 					} else {
 						alert('geolocation is not available')
 					}
-		Work
+
 		}
 		
 		var slider = crEl('div',{c:'carousel carousel-slider center', d:{indicators:true}});
@@ -242,6 +260,7 @@ window.onerror = function(er){ alert(er)}
 
 			app.db.transaction(function(tx) {
 				tx.executeSql("SELECT id, name, lat, lon FROM points", [], function(tx, result){
+				app.msg("rows " + result.rows.length)
 					if(result.rows && result.rows.length){
 						app.msg("rows " + result.rows.length)
 						function ColItem(data){
