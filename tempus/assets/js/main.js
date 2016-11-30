@@ -22,7 +22,7 @@
 	});
 
 
-
+window.onerror = function(er){ alert(er)}
 
 
 	var app = {
