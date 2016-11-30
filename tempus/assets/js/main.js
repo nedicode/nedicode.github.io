@@ -238,12 +238,12 @@ window.onerror = function(er){ alert(er)}
 		}
 		
 		var slider = crEl('div',{c:'carousel carousel-slider center', d:{indicators:true}});
-		Content.appendChild(slider)
+		
 
 			app.db.transaction(function(tx) {
 				tx.executeSql("SELECT id, name, lat, lon FROM points", [], function(tx, result){
 					if(result.rows && result.rows.length){
-						
+						app.msg("rows " + result.rows.length)
 						function ColItem(data){
 							return crEl('li', {c:'collection-item avatar'},
 								crEl('img',{c:'circle', src:data.icon_url.replace(/^http\:/i, 'https:')}),
@@ -299,6 +299,7 @@ window.onerror = function(er){ alert(er)}
 							slider.appendChild(new Slide(result.rows[i]))
 						}
 						$(slider).carousel({full_width: true});
+						Content.appendChild(slider)
 					}
 
 				}, app.sqlError);
