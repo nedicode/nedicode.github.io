@@ -245,10 +245,13 @@
 					if(result.rows && result.rows.length){
 						function Slide(point){
 						
-						$.getJSON('//api.openweathermap.org/data/2.5/weather?units=metric&lat='+point.lat+'&lon='+point.lon+'&cnt=' + 1 + '&APPID=cd86e235fc7c0bcac549923298b74a71&lang=ru', function(w){
-						
+						$.getJSON('http://api.openweathermap.org/data/2.5/weather', {units:'metric',lat:point.lat, lon: point.lon, APPID:'cd86e235fc7c0bcac549923298b74a71', lang:'ru'}, function(w){
 							console.info(w)
 						})
+						
+						$.getJSON('https://api.weather.yandex.ru/v1/forecast', {units:'metric',lat:point.lat, lon: point.lon, extra:'true', lang:'ru'}, function(w){
+							console.info(w)
+						})						
 
 						
 						
