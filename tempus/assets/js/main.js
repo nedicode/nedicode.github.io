@@ -334,7 +334,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								cData = [];
 								w.hourly_forecast.forEach(function(hp){
 									slider.appendChild(new ColItem(hp))
-									cData.push([data.FCTTIME.mday + ' ' + data.FCTTIME.month_name_abbrev+' ' + data.FCTTIME.hour_padded + ':' + data.FCTTIME.min, data.temp.metric,data.feelslike.metric])
+									cData.push([hp.FCTTIME.mday + ' ' + hp.FCTTIME.month_name_abbrev+' ' + hp.FCTTIME.hour_padded + ':' + hp.FCTTIME.min, hp.temp.metric,hp.feelslike.metric])
 								});
 								
 								
@@ -344,7 +344,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								$(slider).carousel({full_width: true});
 								$(slider).height($(window).height() - $("#baseNavbar").height())
 								
-								/*$.getScript('https://www.gstatic.com/charts/loader.js', function(){
+								$.getScript('https://www.gstatic.com/charts/loader.js', function(){
 									document.getElementById("firstSl").appendChild(crEl('div', {id:'chart_div'}));
 									
 									
@@ -376,7 +376,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									}
 									
 									
-								})*/
+								})/**/
 								
 								
 							}
