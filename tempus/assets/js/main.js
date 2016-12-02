@@ -355,7 +355,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									function drawChart() {
 
 									  var data = new google.visualization.DataTable();
-									  data.addColumn('number', 'Время');
+									  data.addColumn('string', 'Время');
 									  data.addColumn('number', 'Температура');
 									  data.addColumn('number', 'По ощущениям');
 				
