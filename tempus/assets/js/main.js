@@ -325,7 +325,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 							crEl('a',{href:'javascript:void(0)', id:'initSearch', e:{click: function(){
 								if(confirm('Are you sure you want to delete?')){
 									app.db.transaction(function(tx) {
-										tx.executeSql("SELECT id, name, lat, lon FROM points WHERE id=" + id, [], function(tx, result){
+										tx.executeSql("DELETE FROM points WHERE id=" + id, [], function(tx, result){
 											location.href='#'
 										})
 									})
