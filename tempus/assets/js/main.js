@@ -60,7 +60,14 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 					switch(hashParams.v){
 						case 'about':
 						
-
+										Content.innerHTML = '';
+										Content.appendChild(crEl('div',{s:'padding:20px'},
+											"Tempus", crEl('br'),
+											'weather aggregator', crEl('br'),
+											'0.0.1'
+										))
+										document.title = "About";
+										Title.innerHTML = "About";
 
 						break;
 					}
@@ -199,7 +206,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 					document.getElementById("search").value = "";
 					document.getElementById("search").focus()
 				}
-			}}}, new MIcon('create'))
+			}}},'\u00a0') // new MIcon('create')
 		))
 		
 		
@@ -218,7 +225,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:app.addPoint()'}, 'Add location')));
 		Sidebar.appendChild(crEl('li',{c:'divider'}))
-		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'#about'}, 'О программе')));
+		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'#about'}, 'About')));
 
 		$("#sidebarCollapser").sideNav({closeOnClick: true });
 		
@@ -245,6 +252,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 							app.db.transaction(function(tx) {
 								tx.executeSql("INSERT INTO points (name, lat, lon) values(?,?,?)", [prompt('Name of location:', 'Home, sweet home'), lat, lon], function(tx, result){
 									app.msg("Success","success")
+									location.reload()
 								}, app.sqlError);
 							})
 
@@ -262,7 +270,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 				tx.executeSql("SELECT id, name, lat, lon FROM points", [], function(tx, result){
 				
 					if(result.rows && result.rows.length){
-						app.msg("rows " + result.rows.length)
+						
 						function ColItem(data){
 							return crEl('li', {c:'collection-item avatar'},
 								crEl('img',{c:'circle', src:data.icon_url.replace(/^http\:/i, 'https:')}),
@@ -296,7 +304,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									if(day!=groupName){ list.appendChild( crEl('li',{c:'collection-header'}, crEl('h5', groupName + '. \u00a0', crEl('small', hp.FCTTIME.weekday_name))) ); day = groupName; }
 									list.appendChild(new ColItem(hp))
 								});
-								div.appendChild(crEl('div',{s:'overflow-y:auto; max-height:100%'}, list))
+								div.appendChild( list )
 							}
 						})
 						
