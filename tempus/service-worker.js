@@ -1,5 +1,5 @@
-var dataCacheName = 'tempus-v0.0.1';
-var cacheName = 'tempus-0.0.1';
+var dataCacheName = 'tempus-v0.0.3';
+var cacheName = 'tempus-0.0.3';
 var filesToCache = [
 	'index.html',
 	'assets/fonts/material-design-icons/material-icons.css',
@@ -33,6 +33,7 @@ var filesToCache = [
 	'assets/js/jquery-1.12.0.min.js',
 	'assets/js/main.js',
 	'assets/js/materialize.min.js',
+	'assets/js/google_chart_loader.js',
 	'assets/css/main.css',
 	'assets/css/materialize.css',
 	'assets/css/materialize.min.css',
@@ -76,7 +77,7 @@ self.addEventListener('activate', function(e) {
 
 self.addEventListener('fetch', function(e) {
   console.log('[Service Worker] Fetch', e.request.url);
-  var dataUrl = 'https://query.yahooapis.com/v1/public/yql';
+  var dataUrl = 'api.wunderground.com/api/';
   if (e.request.url.indexOf(dataUrl) > -1) {
     /*
      * When the request URL contains dataUrl, the app is asking for fresh
