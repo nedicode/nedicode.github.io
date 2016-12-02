@@ -330,7 +330,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 							if( w && w.hourly_forecast ){
 								
 								var slider = crEl('div',{c:'carousel carousel-slider center', d:{indicators:true}});
-								slider.appendChild(crEl('div',{c:'carousel-item', {s:'padding:20px'},id:'firstSl'}));
+								slider.appendChild(crEl('div',{c:'carousel-item', s:'padding:20px',id:'firstSl'}));
 								cData = [];
 								w.hourly_forecast.forEach(function(hp){
 									slider.appendChild(new ColItem(hp));
