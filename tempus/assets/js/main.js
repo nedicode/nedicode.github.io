@@ -335,7 +335,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								w.hourly_forecast.forEach(function(hp){
 									slider.appendChild(new ColItem(hp));
 									var d = hp.FCTTIME.mday + ' ' + hp.FCTTIME.month_name_abbrev+' ' + hp.FCTTIME.hour_padded + ':' + hp.FCTTIME.min;
-									cData.push([d, hp.temp.metric,hp.feelslike.metric])
+									cData.push([d, +hp.temp.metric, +hp.feelslike.metric])
 								});
 								
 								
