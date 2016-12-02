@@ -272,7 +272,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 					if(result.rows && result.rows.length){
 						
 						function ColItem(data){
-							return crEl('li', {c:'collection-item avatar'},
+							return crEl('li', {c:'collection-item avatar left-align'},
 								crEl('img',{c:'circle', src:data.icon_url.replace(/^http\:/i, 'https:')}),
 								crEl('span', {c:'title'}, crEl('strong', data.FCTTIME.hour_padded + ':' + data.FCTTIME.min ),' \u00a0 ',crEl('span',data.condition)),
 								crEl('p', 
