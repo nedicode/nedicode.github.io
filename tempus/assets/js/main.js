@@ -330,7 +330,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 							if( w && w.hourly_forecast ){
 								
 								var slider = crEl('div',{c:'carousel carousel-slider center', d:{indicators:true}});
-								slider.appendChild(crEl('div',{c:'carousel-item', id:'firstSl'}));
+								slider.appendChild(crEl('div',{c:'carousel-item', {s:'padding:20px'},id:'firstSl'}));
 								cData = [];
 								w.hourly_forecast.forEach(function(hp){
 									slider.appendChild(new ColItem(hp));
@@ -349,39 +349,28 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									document.getElementById("firstSl").appendChild(crEl('div', {id:'chart_div'}));
 									
 									
-									google.charts.load('current', {'packages':['line']});
+									google.charts.load('current', {'packages':['corechart']});
 									  google.charts.setOnLoadCallback(drawChart);
 
-									function drawChart() {
-
-									  var data = new google.visualization.DataTable();
-									  data.addColumn('string', 'Время');
-									  data.addColumn('number', 'Температура');
-									  data.addColumn('number', 'По ощущениям');
-				
-
-									  data.addRows(cData);
-
-									  var options = {
-										chart: {
-										  title: 'Температура',
-										  subtitle: 'по часам'
-										},
-										
-		
-										curveType: 'function',
-										lineWidth: 4,
-										intervals: { 'style':'line' },
-										legend: 'none',
-																	
-										width: $(window).width()-32,
-										height: $(window).width()-80
-									  };
-
-									  var chart = new google.charts.Line(document.getElementById('chart_div'));
-
-									  chart.draw(data, options);
-									}
+									  function drawChart() {
+										var data = new google.visualization.DataTable();
+										data.addColumn('string', 'Время');
+										data.addColumn('number', 'Температура факт');
+										data.addColumn('number', 'Температура по ощущениям');
+										data.addRows(cData);
+								  
+										// The intervals data as narrow lines (useful for showing raw source data)
+										var options_lines = {
+											title: 'График температур',
+											curveType: 'function',
+											lineWidth: 4,
+											intervals: { 'style':'line' },
+											legend: 'none'
+										};
+								  
+										var chart_lines = new google.visualization.LineChart(document.getElementById('chart_div'));
+										chart_lines.draw(data, options_lines);
+									  }
 									
 									
 								})
