@@ -286,12 +286,14 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		app.addPoint = function(){
 		
 					if (navigator.geolocation) {
+						var name = prompt('Name of location:', 'Home, sweet home');
+						if(!name.length){return false;}
 						navigator.geolocation.getCurrentPosition(function(position){
 							lat = position.coords.latitude
 							lon = position.coords.longitude
 
 							app.db.transaction(function(tx) {
-								tx.executeSql("INSERT INTO points (name, lat, lon) values(?,?,?)", [prompt('Name of location:', 'Home, sweet home'), lat, lon], function(tx, result){
+								tx.executeSql("INSERT INTO points (name, lat, lon) values(?,?,?)", [name, lat, lon], function(tx, result){
 
 									app.msg("Success","success")
 									location.href='#v=point&id='+result.insertId
