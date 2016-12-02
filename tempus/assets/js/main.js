@@ -42,7 +42,19 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
     return false;
 };
 
+		var ls = {
+			set:function(key,value){window.localStorage.setItem(key, value)},
+			get:function(key){return window.localStorage.getItem(key)},
+			unset:function(key){ window.localStorage.removeItem(key)},
+			clear:function(){window.localStorage.clear();}
+		}
 
+		var MIcon = function(name, attrs){
+			var e = crEl('i', attrs, name);
+			e.classList.add('material-icons');
+			return e;
+		}
+		
 	var app = {
 		navigate: function(hash){
 			
@@ -63,7 +75,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 							Content.appendChild(crEl('div',{s:'padding:20px; text-align:center'},
 								"TEMPUS", crEl('br'),
 								'weather aggregator', crEl('br'),
-								'0.0.1'
+								'0.0.3'
 							))
 							document.title = "About";
 							Title.innerHTML = "About";
@@ -76,6 +88,32 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 
 
 					}
+				} else {
+					Content.innerHTML = '';
+					Content.appendChild(crEl('div',{c:'fixed-action-btn', s:'bottom: 45px; right: 24px;'},
+						crEl('button',{c:'btn-floating btn-large red', e:{click: function(){
+							app.addPoint()
+						}}},new MIcon('add_location'))
+					))
+					
+					var List = crEl('div', {c:'collection'})
+					app.db.transaction(function(tx) {
+						tx.executeSql("SELECT id, name FROM points", [], function(tx, result){
+							if(result.rows && result.rows.length){
+								for(var i=0; i<result.rows.length; i++){
+									List.appendChild(crEl('a',{c:'waves-effect collection-item',href:'#v=point&id=' + result.rows[i].id}, crEl('div',{c:'secondary-content'},new MIcon('place')),
+									crEl('strong',result.rows[i].name)));
+								}
+							} else {
+								Content.appendChild(crEl('div',{s:'padding:20px; text-align:center'},'Add at least one point'));
+							}
+							Content.appendChild(List)
+						}, app.sqlError);
+					})
+							
+					
+					
+					
 				}
 				
 
@@ -156,18 +194,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		}
 	};		
 
-		var ls = {
-			set:function(key,value){window.localStorage.setItem(key, value)},
-			get:function(key){return window.localStorage.getItem(key)},
-			unset:function(key){ window.localStorage.removeItem(key)},
-			clear:function(){window.localStorage.clear();}
-		}
 
-		var MIcon = function(name, attrs){
-			var e = crEl('i', attrs, name);
-			e.classList.add('material-icons');
-			return e;
-		}
 		
 		try {
 			app.db = openDatabase("base","0.1","Основная база кеша приложения", 2 * 1024 * 1024);
@@ -292,13 +319,29 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						Title.innerHTML = result.rows[0].name;
 
 						
+						
+						navRight.innerHTML = ''
+						navRight.appendChild(crEl('li',
+							crEl('a',{href:'javascript:void(0)', id:'initSearch', e:{click: function(){
+								if(confirm('Are you sure you want to delete?')){
+									app.db.transaction(function(tx) {
+										tx.executeSql("SELECT id, name, lat, lon FROM points WHERE id=" + id, [], function(tx, result){
+											location.href='#'
+										})
+									})
+								}
+							}}},new MIcon('delete')) // new MIcon('create')
+						))
+						
+						
+						
 						function ColItem(data){
 							
 							return crEl('div', {c:'carousel-item', s:'height:100%'},
 								crEl('div', {c:'card-panel blue white-text', s:'margin-top:0; position:relative; padding:8px 8px 16px 8px;'},
 									crEl('h2', {c:'blue-text text-lighten-4'}, data.FCTTIME.mday + '\u00a0' + data.FCTTIME.month_name_abbrev+' \u00a0 ' , crEl('span', data.FCTTIME.hour_padded + ':' + data.FCTTIME.min)),
 									
-									crEl('input',{type:'image', c:'btn-floating btn-large waves-effect waves-light btn-white white', s:'padding:8px; position:absolute; bottom:-25px; right:16px', src:data.icon_url}),
+									crEl('input',{type:'image', c:'btn-floating btn-large waves-effect waves-light btn-white white', s:'padding:8px; position:absolute; bottom:-25px; right:16px', src:data.icon_url.replace(/http\:/i, 'https:')}),
 									
 								//	crEl('div',),
 									crEl('h3', {s:'font-weight:200'}, data.condition),
@@ -330,7 +373,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 							if( w && w.hourly_forecast ){
 								
 								var slider = crEl('div',{c:'carousel carousel-slider center', d:{indicators:true}});
-								slider.appendChild(crEl('div',{c:'carousel-item', s:'padding:20px',id:'firstSl'}));
+								
 								var cData = [], minD=null, maxD=null;
 								w.hourly_forecast.forEach(function(hp){
 									slider.appendChild(new ColItem(hp));
@@ -340,7 +383,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									cData.push([new Date(hp.FCTTIME.epoch*1000), +hp.temp.metric, +hp.feelslike.metric])
 								});
 								
-								
+								slider.appendChild(crEl('div',{c:'carousel-item', s:'padding:20px',id:'firstSl'}));
 								
 								
 								Content.appendChild(slider)
