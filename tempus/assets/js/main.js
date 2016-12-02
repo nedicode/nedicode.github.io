@@ -331,10 +331,12 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								
 								var slider = crEl('div',{c:'carousel carousel-slider center', d:{indicators:true}});
 								slider.appendChild(crEl('div',{c:'carousel-item', s:'padding:20px',id:'firstSl'}));
-								cData = [];
+								var cData = [], minD=null, maxD=null;
 								w.hourly_forecast.forEach(function(hp){
 									slider.appendChild(new ColItem(hp));
 									//var d = hp.FCTTIME.mday + ' ' + hp.FCTTIME.month_name_abbrev+' ' + hp.FCTTIME.hour_padded + ':' + hp.FCTTIME.min;
+									if(!minD || minD>hp.FCTTIME.epoch){minD = hp.FCTTIME.epoch}
+									if(!maxD || maxD<hp.FCTTIME.epoch){maxD = hp.FCTTIME.epoch}
 									cData.push([new Date(hp.FCTTIME.epoch*1000), +hp.temp.metric, +hp.feelslike.metric])
 								});
 								
@@ -365,15 +367,16 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 											curveType: 'function',
 											lineWidth: 3,
 											intervals: { 'style':'line' },
-											//legend: { position: 'bottom' },
+											legend: { position: 'bottom' },
 											height: 400,
-											legend: {position: 'none'},
-											enableInteractivity: false,
+											chartArea: {
+											  width: '85%'
+											},
 											hAxis: {
-												/*  viewWindow: {
-													min: new Date(2014, 11, 31, 18),
-													max: new Date(2015, 0, 3, 1)
-												  },*/
+												  viewWindow: {
+													min: new Date(minD*1000),
+													max: new Date(maxD*1000)
+												  },
 												  gridlines: {
 													count: -1,
 													units: {
@@ -387,9 +390,6 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 													  minutes: {format: ['HH:mm a Z', ':mm']}
 													}
 												  }
-											},
-											vAxis: {
-												  title: 'Температура °С'
 											}
 										};
 								  
