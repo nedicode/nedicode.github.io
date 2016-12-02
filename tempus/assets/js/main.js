@@ -365,13 +365,29 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 											curveType: 'function',
 											lineWidth: 3,
 											intervals: { 'style':'line' },
-											 legend: { position: 'bottom' },
-											   hAxis: {
-												  title: 'Время'
-												},
-												vAxis: {
+											legend: { position: 'bottom' },
+											hAxis: {
+												/*  viewWindow: {
+													min: new Date(2014, 11, 31, 18),
+													max: new Date(2015, 0, 3, 1)
+												  },*/
+												  gridlines: {
+													count: -1,
+													units: {
+													  days: {format: ['MMM dd']},
+													  hours: {format: ['HH:mm', 'ha']},
+													}
+												  },
+												  minorGridlines: {
+													units: {
+													  hours: {format: ['hh:mm:ss a', 'ha']},
+													  minutes: {format: ['HH:mm a Z', ':mm']}
+													}
+												  }
+											},
+											vAxis: {
 												  title: 'Температура °С'
-												}
+											}
 										};
 								  
 										var chart_lines = new google.visualization.LineChart(document.getElementById('chart_div'));
