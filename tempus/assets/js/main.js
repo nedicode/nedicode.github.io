@@ -334,8 +334,8 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								cData = [];
 								w.hourly_forecast.forEach(function(hp){
 									slider.appendChild(new ColItem(hp));
-									var d = hp.FCTTIME.mday + ' ' + hp.FCTTIME.month_name_abbrev+' ' + hp.FCTTIME.hour_padded + ':' + hp.FCTTIME.min;
-									cData.push([d, +hp.temp.metric, +hp.feelslike.metric])
+									//var d = hp.FCTTIME.mday + ' ' + hp.FCTTIME.month_name_abbrev+' ' + hp.FCTTIME.hour_padded + ':' + hp.FCTTIME.min;
+									cData.push([new Date(hp.FCTTIME.epoch*1000), +hp.temp.metric, +hp.feelslike.metric])
 								});
 								
 								
@@ -354,7 +354,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 
 									  function drawChart() {
 										var data = new google.visualization.DataTable();
-										data.addColumn('string', 'Время');
+										data.addColumn('datetime', 'Время');
 										data.addColumn('number', 'Температура факт');
 										data.addColumn('number', 'Температура по ощущениям');
 										data.addRows(cData);
