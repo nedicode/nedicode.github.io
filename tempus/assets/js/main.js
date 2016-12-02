@@ -363,9 +363,15 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 										var options_lines = {
 											title: 'График температур',
 											curveType: 'function',
-											lineWidth: 4,
+											lineWidth: 3,
 											intervals: { 'style':'line' },
-											legend: 'none'
+											 legend: { position: 'bottom' },
+											   hAxis: {
+												  title: 'Время'
+												},
+												vAxis: {
+												  title: 'Температура °С'
+												}
 										};
 								  
 										var chart_lines = new google.visualization.LineChart(document.getElementById('chart_div'));
