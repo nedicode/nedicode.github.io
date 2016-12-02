@@ -334,11 +334,11 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								cData = [];
 								w.hourly_forecast.forEach(function(hp){
 									slider.appendChild(new ColItem(hp))
-									cData.push([hp.FCTTIME.mday + ' ' + hp.FCTTIME.month_name_abbrev+' ' + hp.FCTTIME.hour_padded + ':' + hp.FCTTIME.min, hp.temp.metric,hp.feelslike.metric])
+									//cData.push([hp.FCTTIME.mday + ' ' + hp.FCTTIME.month_name_abbrev+' ' + hp.FCTTIME.hour_padded + ':' + hp.FCTTIME.min, hp.temp.metric,hp.feelslike.metric])
 								});
 								
 								
-								
+								/*
 								
 								Content.appendChild(slider)
 								$(slider).carousel({full_width: true});
@@ -376,7 +376,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									}
 									
 									
-								})/**/
+								})*/
 								
 								
 							}
