@@ -58,7 +58,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 	var app = {
 		navigate: function(hash){
 			
-
+				navRight.innerHTML = ''
 				var hashParams = {};
 				var e,
 					a = /\+/g,  // Regex for replacing addition symbol with a space
