@@ -345,7 +345,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								$(slider).carousel({full_width: true});
 								$(slider).height($(window).height() - $("#baseNavbar").height())
 								
-								$.getScript('https://www.gstatic.com/charts/loader.js', function(){
+								
 									document.getElementById("firstSl").appendChild(crEl('div', {id:'chart_div'}));
 									
 									
@@ -373,7 +373,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									  }
 									
 									
-								})
+								
 								
 								
 							}
