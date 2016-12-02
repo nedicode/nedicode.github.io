@@ -367,6 +367,13 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 										  title: 'Температура',
 										  subtitle: 'по часам'
 										},
+										
+		
+										curveType: 'function',
+										lineWidth: 4,
+										intervals: { 'style':'line' },
+										legend: 'none',
+																	
 										width: $(window).width()-32,
 										height: $(window).width()-80
 									  };
