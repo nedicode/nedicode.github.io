@@ -365,7 +365,10 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 											curveType: 'function',
 											lineWidth: 3,
 											intervals: { 'style':'line' },
-											legend: { position: 'bottom' },
+											//legend: { position: 'bottom' },
+											height: 400,
+											legend: {position: 'none'},
+											enableInteractivity: false,
 											hAxis: {
 												/*  viewWindow: {
 													min: new Date(2014, 11, 31, 18),
