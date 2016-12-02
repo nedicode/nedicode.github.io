@@ -333,12 +333,13 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								slider.appendChild(crEl('div',{c:'carousel-item', id:'firstSl'}));
 								cData = [];
 								w.hourly_forecast.forEach(function(hp){
-									slider.appendChild(new ColItem(hp))
-									//cData.push([hp.FCTTIME.mday + ' ' + hp.FCTTIME.month_name_abbrev+' ' + hp.FCTTIME.hour_padded + ':' + hp.FCTTIME.min, hp.temp.metric,hp.feelslike.metric])
+									slider.appendChild(new ColItem(hp));
+									var d = hp.FCTTIME.mday + ' ' + hp.FCTTIME.month_name_abbrev+' ' + hp.FCTTIME.hour_padded + ':' + hp.FCTTIME.min;
+									cData.push([d, hp.temp.metric,hp.feelslike.metric])
 								});
 								
 								
-								/*
+								
 								
 								Content.appendChild(slider)
 								$(slider).carousel({full_width: true});
@@ -376,7 +377,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									}
 									
 									
-								})*/
+								})
 								
 								
 							}
