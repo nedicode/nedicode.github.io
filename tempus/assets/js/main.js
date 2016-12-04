@@ -351,9 +351,9 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									crEl('sup',{c:'blue-text text-lighten-4 pull-right', s:'font-weight:100; font-size:15px'},data.feelslike.metric + '°С ' ))
 								),
 								crEl('div',{s:' display: block; width:auto; padding: 20px; font-size:24px; text-align:left; line-height:24px;'},
-									crEl('div', {s:'line-height:24px; padding:8px;'}, 
+									crEl('div', {s:'line-height:24px; padding:8px;', title:((data.wspd.metric/60/60)*1000)+' м/c'}, 
 										new MIcon('toys',{c:'md-18'}), 
-										' \u00a0 '+data.wspd.metric +'\u00a0м/с  ' , crEl('small', {c:'grey-text'}, data.wdir.dir) ,' \u00a0',
+										' \u00a0 ' + data.wspd.metric + '\u00a0км/ч  ', crEl('small', {c:'grey-text'}, data.wdir.dir) ,' \u00a0',
 										//crEl('span',{s:'display:inline-block; width:24px; height:24px; position:relative'},
 											crEl('span',{s:'position:absolute;  width:24px height:24px; transform:rotate(' + (+data.wdir.degrees) + 'deg);'}, new MIcon('navigation'))
 										//)
@@ -374,7 +374,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						
 							if( w && w.hourly_forecast ){
 								
-								var slider = crEl('div',{c:'carousel carousel-slider center', d:{indicators:true}});
+								var slider = crEl('div',{id:'tempusCarousel',c:'carousel carousel-slider center', d:{indicators:true}});
 								
 								var cData = [], minD=null, maxD=null;
 								w.hourly_forecast.forEach(function(hp){
@@ -390,6 +390,14 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								
 								Content.appendChild(slider)
 								$(slider).carousel({full_width: true});
+								//l37 r39
+								window.onkeydown =function(e){
+									if(e.keyCode === 37){
+										$('#tempusCarousel').carousel('prev');
+									} else if(keyCode===39){
+										$('#tempusCarousel').carousel('next');
+									}
+								}
 								$(slider).height($(window).height() - $("#baseNavbar").height())
 								
 								
