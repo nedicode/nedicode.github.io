@@ -394,7 +394,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								window.onkeydown =function(e){
 									if(e.keyCode === 37){
 										$('#tempusCarousel').carousel('prev');
-									} else if(keyCode===39){
+									} else if(e.keyCode===39){
 										$('#tempusCarousel').carousel('next');
 									}
 								}
