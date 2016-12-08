@@ -260,6 +260,16 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		Sidebar.appendChild(crEl('li', crEl('div',{s:'padding:40px 20px; margin-bottom:16px; line-height:16px', c:'blue white-text'}, crEl('strong',{s:'font-size:30px; font-weight:200'},'TEMPUS'), crEl('br'),crEl('small',{s:'font-size:13px; font-weight:200; opacity:0.8'},'\u00a0 weather aggregator'))))
 		
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:app.addPoint()'}, new MIcon('add_location'),'Add location')));
+		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:void(0)', e:{click: function(){
+		
+			let k = app.full(crEl('div', crEl('button',{e:{click: function(){
+			app.addPoint(prompt('lat'),prompt('lon'))
+				k.close()
+			}}},'Save')), function(){
+				
+			})
+		
+		}}}, new MIcon('add_location'),'Add location 2')));
 		Sidebar.appendChild(crEl('li',{c:'divider'}))
 		
 		
@@ -283,8 +293,20 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		
 
 
-		app.addPoint = function(){
+		app.addPoint = function(lat, lon){
+		if(lat && lon){
 		
+		
+		app.db.transaction(function(tx) {
+								tx.executeSql("INSERT INTO points (name, lat, lon) values(?,?,?)", [name, lat, lon], function(tx, result){
+
+									app.msg("Success","success")
+									location.href='#v=point&id='+result.insertId
+								}, app.sqlError);
+							})
+		
+			return;
+		}
 					if (navigator.geolocation) {
 						var name = prompt('Name of location:', 'Home, sweet home');
 						if(!name.length){return false;}
@@ -485,5 +507,11 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		}
 		
 
-		
+app.full = function(body,cb){
+		this._el = crEl('div',{id:'modal',s:'position:fixed; z-index:99999; top:0; left:0; width:100%; height:100%; background:#fff;'}, body);
+		this.close = function(){ $("#modal").remove() }
+		document.body.appendChild(this._el);
+		if(typeof cb === 'function'){ cb(this) }
+		return this;
+	}		
 		
