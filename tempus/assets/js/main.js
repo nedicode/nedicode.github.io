@@ -271,7 +271,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 					}}},'Save')
 				)
 				, function(){
-					$.getJSON('https://api-maps.yandex.ru/2.1/?lang=ru_RU', function(){
+					$.getScript('https://api-maps.yandex.ru/2.1/?lang=ru_RU', function(){
 					var myMap, myPlacemark, coords;
 					 
 						ymaps.ready(init);
