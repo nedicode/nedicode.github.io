@@ -269,6 +269,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						app.addPoint(this.dataset.lat,this.dataset.lon)
 						k.close()
 					}}},'Save')
+				)
 				, function(){
 					$.getJSON('https://api-maps.yandex.ru/2.1/?lang=ru_RU', function(){
 					var myMap, myPlacemark, coords;
