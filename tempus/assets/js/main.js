@@ -262,12 +262,12 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:app.addPoint()'}, new MIcon('add_location'),'Add location')));
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:void(0)', e:{click: function(){
 		
-			let k = app.full(crEl('div', crEl('div', {id:'map', s:'width:100%; height:100%;'}) crEl('button',{s:'position:fixed; bottom:16px; left:16px; z-index:111111111;', c:'btn btn-success', id:'savecoordbtn', e:{click: function(){
+			let k = app.full(crEl('div', crEl('div', {id:'map', s:'width:100%; height:100%;'}, crEl('button',{s:'position:fixed; bottom:16px; left:16px; z-index:111111111;', c:'btn btn-success', id:'savecoordbtn', e:{click: function(){
 
 				app.addPoint(this.dataset.lat,this.dataset.lon)
 				k.close()
 
-			}}},'Save')), function(){
+			}}},'Save'))), function(){
 				$.getJSON('//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU', function(){
 				var myMap, myPlacemark, coords;
 				 
