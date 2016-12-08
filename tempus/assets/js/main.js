@@ -271,7 +271,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 					}}},'Save')
 				)
 				, function(){
-					$.getScript('https://api-maps.yandex.ru/2.1/?lang=ru_RU', function(){
+				
 					var myMap, myPlacemark, coords;
 					 
 						ymaps.ready(init);
@@ -343,7 +343,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						
 						savecoordinats ()
 					 
-					})
+					
 				})
 		
 		}}}, new MIcon('add_location'),'Add location 2')));
