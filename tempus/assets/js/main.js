@@ -270,7 +270,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						k.close()
 					}}},'Save')
 				, function(){
-					$.getJSON('//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU', function(){
+					$.getJSON('https://api-maps.yandex.ru/2.1/?lang=ru_RU', function(){
 					var myMap, myPlacemark, coords;
 					 
 						ymaps.ready(init);
