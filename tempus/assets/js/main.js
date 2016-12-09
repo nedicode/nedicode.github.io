@@ -262,7 +262,10 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:app.addPoint()'}, new MIcon('add_location'),'Add location')));
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:void(0)', e:{click: function(){
 			window.initMap = function(){
-				alert('Google map inited')
+				  map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat: 53.12, lng: 45.0},
+					zoom: 8
+				  });
 			}
 			$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBys-VZDfG50hlUiZgywZJBdx_K93pz69c&callback=initMap')
 			let k = app.full(
@@ -282,8 +285,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						function savecoordinats (){	
 
 							el = document.getElementById("savecoordbtn");
-							el.dataset.lat = coords[0]
-							el.dataset.lon = coords[1]
+
 							
 						}
 						
