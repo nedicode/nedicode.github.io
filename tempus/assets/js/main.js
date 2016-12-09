@@ -261,76 +261,22 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:app.addPoint()'}, new MIcon('add_location'),'Add location')));
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:void(0)', e:{click: function(){
-		
+			window.initMap = function(){
+				alert('Google map inited')
+			}
+			app.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBys-VZDfG50hlUiZgywZJBdx_K93pz69c&callback=initMap')
 			let k = app.full(
 				crEl('div', 
 					crEl('div', {id:'map', s:'width:100%; height:100%;'}),
 					crEl('button',{s:'position:fixed; bottom:16px; left:16px; z-index:111111111;', c:'btn btn-success', id:'savecoordbtn', e:{click: function(){
 						app.addPoint(this.dataset.lat,this.dataset.lon)
 						k.close()
-					}}},'Save')
+					}}},'Save'),
+					crEl('div',{s:'position:fixed; width:24px; height:24px; border:3px solid rgba(255,0,0,0.65); border-radius:24px; left:50%; top:50%; margin-left:-12px; margin-top:-12px; z-index:45465'})
 				)
 				, function(){
 				
-					var myMap, myPlacemark, coords;
-					 
-						ymaps.ready(init);
-					 
-							function init () {
-					 
-							//Определяем начальные параметры карты
-								myMap = new ymaps.Map('map', {
-										center: [53.1202, 45.0016], 
-										zoom: 10
-									});	
-					 
-								//Определяем элемент управления поиск по карте	
-								var SearchControl = new ymaps.control.SearchControl({noPlacemark:true});	
-					 
-								//Добавляем элементы управления на карту
-								 myMap.controls
-									.add(SearchControl)                
-									.add('zoomControl')                
-									.add('typeSelector')                 
-									.add('mapTools');
-					 
-								coords = [53.1202, 45.0016];
-					 
-								//Определяем метку и добавляем ее на карту				
-								myPlacemark = new ymaps.Placemark([53.1202, 45.0016],{}, {preset: "twirl#redIcon", draggable: true});	
-					 
-								myMap.geoObjects.add(myPlacemark);			
-					 
-								//Отслеживаем событие перемещения метки
-								myPlacemark.events.add("dragend", function (e) {			
-								coords = this.geometry.getCoordinates();
-								savecoordinats();
-								}, myPlacemark);
-					 
-								//Отслеживаем событие щелчка по карте
-								myMap.events.add('click', function (e) {        
-								coords = e.get('coordPosition');
-								savecoordinats();
-								});	
-					 
-						//Отслеживаем событие выбора результата поиска
-						SearchControl.events.add("resultselect", function (e) {
-							coords = SearchControl.getResultsArray()[0].geometry.getCoordinates();
-							savecoordinats();
-						});
-					 
-						//Ослеживаем событие изменения области просмотра карты - масштаб и центр карты
-						myMap.events.add('boundschange', function (event) {
-						if (event.get('newZoom') != event.get('oldZoom')) {		
-							savecoordinats();
-						}
-						  if (event.get('newCenter') != event.get('oldCenter')) {		
-							savecoordinats();
-						}
-					 
-						});
-					 
-						}
+
 					 
 						//Функция для передачи полученных значений в форму
 						function savecoordinats (){	
