@@ -266,8 +266,8 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 				crEl('div', 
 					crEl('div', {id:'map', s:'width:' + $(window).width()+'px; height:' + $(window).height()+'px'}),
 					crEl('button',{s:'position:fixed; bottom:16px; left:50%; width:180px; margin-left:-90px; z-index:111111111;', c:'btn btn-success', id:'savecoordbtn', e:{click: function(){
-						alert(this.dataset.lat +'\r\n'+this.dataset.lon)
-						//app.addPoint(this.dataset.lat,this.dataset.lon)
+						
+						app.addPoint(this.dataset.lat,this.dataset.lon)
 						k.close()
 					}}},'СОХРАНИТЬ'),
 					crEl('div',{s:'position:fixed; width:24px; height:24px; border:3px solid rgba(255,0,0,0.65); border-radius:24px; left:50%; top:50%; margin-left:-12px; margin-top:-12px; z-index:45465'})
@@ -278,21 +278,18 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						
 						
 							function savecoordinats (obj){	
-							
-							console.info(obj.lat(), obj.lng())
-							
-								if(obj && obj.lat && obj.lon){
+								if(obj && obj.lat() && obj.lng()){
 										el = document.getElementById("savecoordbtn");
 										if(!el){return;}
-										el.dataset.lat = obj.lat;
-										el.dataset.lon = obj.lon;
+										el.dataset.lat = obj.lat();
+										el.dataset.lon = obj.lng();
 								}
 									
 							}	
 						
 							  map = new google.maps.Map(document.getElementById('map'), {
-								center: {lat: 53.12, lng: 45.0},
-								zoom: 8
+								center: {lat: 53.19992142421151 , lng: 45.02128601074219},
+								zoom: 11
 							  });
 							  
 							  
@@ -345,16 +342,23 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 
 
 		app.addPoint = function(lat, lon){
+		
 		if(lat && lon){
-		
-		
-		app.db.transaction(function(tx) {
-								tx.executeSql("INSERT INTO points (name, lat, lon) values(?,?,?)", [name, lat, lon], function(tx, result){
+			var name = prompt('Name of location:', 'Home, sweet home');
+			if(!name.length){return false;}
+			
+			$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lon + '&key=AIzaSyBaBrv6JoFAbv8ugCSaxkqOgTlQd8s4cEU&language=ru',function(res){
+				console.info(res)
+			})
+			
+			
+			app.db.transaction(function(tx) {
+				tx.executeSql("INSERT INTO points (name, lat, lon) values(?,?,?)", [name, lat, lon], function(tx, result){
 
-									app.msg("Success","success")
-									location.href='#v=point&id='+result.insertId
-								}, app.sqlError);
-							})
+					app.msg("Success","success")
+					location.href='#v=point&id='+result.insertId
+				}, app.sqlError);
+			})
 		
 			return;
 		}
