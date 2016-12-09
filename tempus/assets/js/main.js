@@ -269,8 +269,8 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						
 						app.addPoint(this.dataset.lat,this.dataset.lon)
 						k.close()
-					}}},'СОХРАНИТЬ'),
-					crEl('div',{s:'position:fixed; width:24px; height:24px; border:3px solid rgba(255,0,0,0.65); border-radius:24px; left:50%; top:50%; margin-left:-12px; margin-top:-12px; z-index:45465'})
+					}}},'SAVE'),
+					crEl('div',{s:'position:fixed; width:24px; height:24px;  left:50%; top:50%; margin-left:-12px; margin-top:-12px; z-index:45465; color:red; opacity:0.5'}, new MIcon('my_location'))
 				)
 				, function(){
 			
@@ -317,7 +317,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 					
 				})
 		
-		}}}, new MIcon('add_location'),'Add location 2')));
+		}}}, new MIcon('map'),'Add from Map')));
 		Sidebar.appendChild(crEl('li',{c:'divider'}))
 		
 		
