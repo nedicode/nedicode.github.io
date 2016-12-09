@@ -279,7 +279,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 						
 							function savecoordinats (obj){	
 							
-							console.info(obj)
+							console.info(obj.lat(), obj.lng())
 							
 								if(obj && obj.lat && obj.lon){
 										el = document.getElementById("savecoordbtn");
