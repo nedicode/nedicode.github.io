@@ -267,7 +267,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 					zoom: 8
 				  });
 			}
-			$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBys-VZDfG50hlUiZgywZJBdx_K93pz69c&callback=initMap')
+			$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBaBrv6JoFAbv8ugCSaxkqOgTlQd8s4cEU&callback=initMap')
 			let k = app.full(
 				crEl('div', 
 					crEl('div', {id:'map', s:'width:100%; height:100%;'}),
