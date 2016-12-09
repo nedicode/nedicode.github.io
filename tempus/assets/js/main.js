@@ -75,7 +75,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 							Content.appendChild(crEl('div',{s:'padding:20px; text-align:center'},
 								"TEMPUS", crEl('br'),
 								'weather aggregator', crEl('br'),
-								'0.0.3'
+								'0.0.4'
 							))
 							document.title = "About";
 							Title.innerHTML = "About";
@@ -344,14 +344,14 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		app.addPoint = function(lat, lon){
 		
 		if(lat && lon){
-			/*var name = prompt('Name of location:', 'Home, sweet home');
+			var name = prompt('Name of location:', 'Home, sweet home');
 			if(!name.length){return false;}
-			*/
+			
 			$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lon + '&key=AIzaSyDlxPfyIUtTHk7RxOz0HIcGBM6fTDA0Cdo&language=ru',function(res){
 				console.info(res)
 			})
 			
-			/*
+			
 			app.db.transaction(function(tx) {
 				tx.executeSql("INSERT INTO points (name, lat, lon) values(?,?,?)", [name, lat, lon], function(tx, result){
 
@@ -359,7 +359,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 					location.href='#v=point&id='+result.insertId
 				}, app.sqlError);
 			})
-		*/
+		
 			return;
 		}
 					if (navigator.geolocation) {
