@@ -261,16 +261,10 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 		
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:app.addPoint()'}, new MIcon('add_location'),'Add location')));
 		Sidebar.appendChild(crEl('li', crEl('a',{c:'waves-effect',href:'javascript:void(0)', e:{click: function(){
-			window.initMap = function(){
-				  map = new google.maps.Map(document.getElementById('map'), {
-					center: {lat: 53.12, lng: 45.0},
-					zoom: 8
-				  });
-			}
-			$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBaBrv6JoFAbv8ugCSaxkqOgTlQd8s4cEU&callback=initMap')
+
 			let k = app.full(
 				crEl('div', 
-					crEl('div', {id:'map', s:'width:100%; height:100%;'}),
+					crEl('div', {id:'map', s:'width:' + $(window).width()+'px; height:' + $(window).height()+'px';}),
 					crEl('button',{s:'position:fixed; bottom:16px; left:16px; z-index:111111111;', c:'btn btn-success', id:'savecoordbtn', e:{click: function(){
 						app.addPoint(this.dataset.lat,this.dataset.lon)
 						k.close()
@@ -279,7 +273,13 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 				)
 				, function(){
 				
-
+						window.initMap = function(){
+							  map = new google.maps.Map(document.getElementById('map'), {
+								center: {lat: 53.12, lng: 45.0},
+								zoom: 8
+							  });
+						}
+						$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBaBrv6JoFAbv8ugCSaxkqOgTlQd8s4cEU&callback=initMap')
 					 
 						//Функция для передачи полученных значений в форму
 						function savecoordinats (){	
