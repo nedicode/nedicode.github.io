@@ -264,7 +264,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 
 			let k = app.full(
 				crEl('div', 
-					crEl('div', {id:'map', s:'width:' + $(window).width()+'px; height:' + $(window).height()+'px';}),
+					crEl('div', {id:'map', s:'width:' + $(window).width()+'px; height:' + $(window).height()+'px'}),
 					crEl('button',{s:'position:fixed; bottom:16px; left:16px; z-index:111111111;', c:'btn btn-success', id:'savecoordbtn', e:{click: function(){
 						app.addPoint(this.dataset.lat,this.dataset.lon)
 						k.close()
