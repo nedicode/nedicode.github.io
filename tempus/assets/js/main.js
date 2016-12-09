@@ -347,7 +347,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 			/*var name = prompt('Name of location:', 'Home, sweet home');
 			if(!name.length){return false;}
 			*/
-			$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lon + '&key=AIzaSyBaBrv6JoFAbv8ugCSaxkqOgTlQd8s4cEU&language=ru',function(res){
+			$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lon + '&key=AIzaSyDlxPfyIUtTHk7RxOz0HIcGBM6fTDA0Cdo&language=ru',function(res){
 				console.info(res)
 			})
 			
