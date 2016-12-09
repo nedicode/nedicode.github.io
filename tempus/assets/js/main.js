@@ -264,7 +264,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 			window.initMap = function(){
 				alert('Google map inited')
 			}
-			app.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBys-VZDfG50hlUiZgywZJBdx_K93pz69c&callback=initMap')
+			$.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBys-VZDfG50hlUiZgywZJBdx_K93pz69c&callback=initMap')
 			let k = app.full(
 				crEl('div', 
 					crEl('div', {id:'map', s:'width:100%; height:100%;'}),
