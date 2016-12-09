@@ -265,7 +265,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 			let k = app.full(
 				crEl('div', 
 					crEl('div', {id:'map', s:'width:' + $(window).width()+'px; height:' + $(window).height()+'px'}),
-					crEl('button',{s:'position:fixed; bottom:16px; left:50%; width:80px; margin-left:-40px; z-index:111111111;', c:'btn btn-success', id:'savecoordbtn', e:{click: function(){
+					crEl('button',{s:'position:fixed; bottom:16px; left:50%; width:180px; margin-left:-90px; z-index:111111111;', c:'btn btn-success', id:'savecoordbtn', e:{click: function(){
 						alert(this.dataset.lat +'\r\n'+this.dataset.lon)
 						//app.addPoint(this.dataset.lat,this.dataset.lon)
 						k.close()
