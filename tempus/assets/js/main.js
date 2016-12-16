@@ -467,7 +467,17 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									crEl('input',{type:'image', c:'btn-floating btn-large waves-effect waves-light btn-white white', s:'padding:8px; position:absolute; bottom:-25px; right:16px', src:data.icon_url.replace(/http\:/i, 'https:'), e: {click: function(){
 									
 									if(!window.speeker){window.speeker = new Speaker();}
-									window.speeker.speak("Прогноз погоды");
+									window.speeker.speak(
+										"Прогноз погоды на " + data.FCTTIME.mday + " " +
+										data.FCTTIME.month_name + " в " + 
+										data.FCTTIME.hour_padded + "." +  data.FCTTIME.min + "!" +
+										
+										 data.condition + '.' +
+										'Температура ' + data.temp.metric+' градусов, ' +
+										'а ощущается как ' + data.feelslike.metric+' градусов цельсия.' +
+										' скорость ветра  ' + ((data.wspd.metric/60/60)*1000).toFixed(2) +' метров в секунду, ' +
+										 ""
+									);
 
 
   
@@ -482,7 +492,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								crEl('div',{s:' display: block; width:auto; padding: 20px; font-size:24px; text-align:left; line-height:24px;'},
 									crEl('div', {s:'line-height:24px; padding:8px;', title:data.wspd.metric+' км/ч'}, 
 										new MIcon('toys',{c:'md-18'}), 
-										' \u00a0 ' + ((data.wspd.metric/60/60)*1000) + '\u00a0м/с  ', crEl('small', {c:'grey-text'}, data.wdir.dir) ,' \u00a0',
+										' \u00a0 ' + ((data.wspd.metric/60/60)*1000).toFixed(2) + '\u00a0м/с  ', crEl('small', {c:'grey-text'}, data.wdir.dir) ,' \u00a0',
 										//crEl('span',{s:'display:inline-block; width:24px; height:24px; position:relative'},
 											crEl('span',{s:'position:absolute;  width:24px height:24px; transform:rotate(' + (+data.wdir.degrees) + 'deg);'}, new MIcon('navigation'))
 										//)
