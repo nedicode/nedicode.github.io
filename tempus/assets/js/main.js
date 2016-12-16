@@ -8,6 +8,50 @@
 	var baseNavbar	= document.getElementById('baseNavbar');
 	var navRight	= document.getElementById('navRight');
 
+function Speaker(){
+	th = this;
+	this.voices = [];
+	synth = window.speechSynthesis;
+	this._getVoices = function(cb){
+		th.voices = synth.getVoices();
+		if( typeof cb === 'function' )cb.call(this)
+	} 
+	this._getVoice = function(lang){
+		for(i = 0; i < this.voices.length ; i++){
+			if(this.voices[i].lang == lang){ return this.voices[i]; }
+		}
+		return false;
+	} 
+
+	this.speak =function(text){
+		if(!this.voices.length){ setTimeout(function(){th.speak.apply(th, [text])},1000); return false;}
+			var utterThis = new SpeechSynthesisUtterance(text);
+				utterThis.pitch = 1;
+				utterThis.lang = 'ru-RU';
+				utterThis.rate = 1;
+				utterThis.voice = th._getVoice('ru-RU');
+				
+				console.info(utterThis, synth)
+				
+			synth.speak(utterThis);
+			  utterThis.onpause = function(event) {
+				var char = event.utterance.text.charAt(event.charIndex);
+				console.log('Speech paused at character ' + event.charIndex + ' of "' +
+				event.utterance.text + '", which is "' + char + '".');
+			  }		
+		
+
+	}	
+	
+	
+	if (synth.onvoiceschanged !== undefined) {
+	   synth.onvoiceschanged = this._getVoices;
+	} else {
+		this._getVoices();
+	}
+}
+
+
 
 
 	window.addEventListener('load', function() {
@@ -420,7 +464,15 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 								crEl('div', {c:'card-panel blue white-text', s:'margin-top:0; position:relative; padding:8px 8px 16px 8px;'},
 									crEl('h2', {c:'blue-text text-lighten-4'}, data.FCTTIME.mday + '\u00a0' + data.FCTTIME.month_name_abbrev+' \u00a0 ' , crEl('span', data.FCTTIME.hour_padded + ':' + data.FCTTIME.min)),
 									
-									crEl('input',{type:'image', c:'btn-floating btn-large waves-effect waves-light btn-white white', s:'padding:8px; position:absolute; bottom:-25px; right:16px', src:data.icon_url.replace(/http\:/i, 'https:')}),
+									crEl('input',{type:'image', c:'btn-floating btn-large waves-effect waves-light btn-white white', s:'padding:8px; position:absolute; bottom:-25px; right:16px', src:data.icon_url.replace(/http\:/i, 'https:'), e: {click: function(){
+									
+									if(!window.speeker){window.speeker = new Speaker();}
+									window.speeker.speak("Прогноз погоды");
+
+
+  
+									
+									}}}),
 									
 								//	crEl('div',),
 									crEl('h3', {s:'font-weight:200'}, data.condition),
@@ -428,9 +480,9 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									crEl('sup',{c:'blue-text text-lighten-4 pull-right', s:'font-weight:100; font-size:15px'},data.feelslike.metric + '°С ' ))
 								),
 								crEl('div',{s:' display: block; width:auto; padding: 20px; font-size:24px; text-align:left; line-height:24px;'},
-									crEl('div', {s:'line-height:24px; padding:8px;', title:((data.wspd.metric/60/60)*1000)+' м/c'}, 
+									crEl('div', {s:'line-height:24px; padding:8px;', title:data.wspd.metric+' км/ч'}, 
 										new MIcon('toys',{c:'md-18'}), 
-										' \u00a0 ' + data.wspd.metric + '\u00a0км/ч  ', crEl('small', {c:'grey-text'}, data.wdir.dir) ,' \u00a0',
+										' \u00a0 ' + ((data.wspd.metric/60/60)*1000) + '\u00a0м/с  ', crEl('small', {c:'grey-text'}, data.wdir.dir) ,' \u00a0',
 										//crEl('span',{s:'display:inline-block; width:24px; height:24px; position:relative'},
 											crEl('span',{s:'position:absolute;  width:24px height:24px; transform:rotate(' + (+data.wdir.degrees) + 'deg);'}, new MIcon('navigation'))
 										//)
