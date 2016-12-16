@@ -474,8 +474,8 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 										
 										 data.condition + '.' +
 										'Температура ' + data.temp.metric+' градусов, ' +
-										'а ощущается как ' + data.feelslike.metric+' градусов цельсия.' +
-										' скорость ветра  ' + ((data.wspd.metric/60/60)*1000).toFixed(2) +' метров в секунду, ' +
+										'а ощущается как ' + data.feelslike.metric+' градусов цеельсия.' +
+										' скорость ветра  ' + ((data.wspd.metric/60/60)*1000).toFixed() +' метров в секунду, ' +
 										 ""
 									);
 
