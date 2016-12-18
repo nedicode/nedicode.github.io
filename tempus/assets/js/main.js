@@ -470,24 +470,22 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 									
 									crEl('input',{type:'image', c:'btn-floating btn-large waves-effect waves-light btn-white white', s:'padding:8px; position:absolute; bottom:-25px; right:16px', src:data.icon_url.replace(/http\:/i, 'https:'), e: {click: function(){
 									
-									if(!window.speeker){window.speeker = new Speaker();}
-									var veter = ((data.wspd.metric/60/60)*1000).toFixed();
-									window.speeker.speak(
-										"Прогноз погоды на " + data.FCTTIME.mday + " " +
-										data.FCTTIME.month_name + " в " + 
-										data.FCTTIME.hour_padded + declOfNum(parseInt(data.FCTTIME.hour_padded), ['час', 'часа', 'часов'])+
-										
-										 data.condition + '.' +
-										'Температура ' + data.temp.metric+' градусов, ' + 
-										declOfNum(parseInt(data.temp.metric), ['градус', 'градуса', 'градусов'])+', '+
-										'а ощущается как ' + data.feelslike.metric+
-										declOfNum(parseInt(data.feelslike.metric), ['градус', 'градуса', 'градусов'])+
-										'  цеельсия.' +
-										' скорость ветра  ' + veter +
-										declOfNum(parseInt(veter), ['метр', 'метра', 'метров'])+
-										'  в секунду, ' +
-										 ""
-									);
+	if(!window.speeker){window.speeker = new Speaker();}
+	var veter = ((data.wspd.metric/60/60)*1000).toFixed();
+	window.speeker.speak(
+		"Прогноз погоды на " + data.FCTTIME.mday + " " +
+		data.FCTTIME.month_name + " в " + 
+		data.FCTTIME.hour_padded + 
+		declOfNum(parseInt(data.FCTTIME.hour_padded), ['час', 'часа', 'часов'])+
+		data.condition + '.' +
+		'Температура ' + data.temp.metric+' ' + 
+		(declOfNum( Math.abs(+(data.temp.metric)), ['градус', 'градуса', 'градусов']) || ' градусов ')+', а ощущается как ' + data.feelslike.metric+
+		(declOfNum(Math.abs(+(data.feelslike.metric)), ['градус', 'градуса', 'градусов']) || 'градусов' )+
+		'  цэльсия.' +
+		' скорость ветра  ' + veter +
+		declOfNum(parseInt(veter), ['метр', 'метра', 'метров'])+
+		'  в секунду, ' + ""
+	);
 
 
   
