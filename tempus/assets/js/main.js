@@ -475,14 +475,14 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 	window.speeker.speak(
 		"Прогноз погоды на " + data.FCTTIME.mday + " " +
 		data.FCTTIME.month_name + " в " + 
-		data.FCTTIME.hour_padded + 
+		data.FCTTIME.hour_padded + '  '+
 		declOfNum(parseInt(data.FCTTIME.hour_padded), ['час', 'часа', 'часов'])+
 		data.condition + '.' +
 		'Температура ' + data.temp.metric+' ' + 
-		(declOfNum( Math.abs(+(data.temp.metric)), ['градус', 'градуса', 'градусов']) || ' градусов ')+', а ощущается как ' + data.feelslike.metric+
+		(declOfNum( Math.abs(+(data.temp.metric)), ['градус', 'градуса', 'градусов']) || ' градусов ')+', а ощущается как ' + data.feelslike.metric+ " "+
 		(declOfNum(Math.abs(+(data.feelslike.metric)), ['градус', 'градуса', 'градусов']) || 'градусов' )+
 		'  цэльсия.' +
-		' скорость ветра  ' + veter +
+		' скорость ветра  ' + veter + ' '+
 		declOfNum(parseInt(veter), ['метр', 'метра', 'метров'])+
 		'  в секунду, ' + ""
 	);
