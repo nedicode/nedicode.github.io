@@ -119,7 +119,7 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 							Content.appendChild(crEl('div',{s:'padding:20px; text-align:center'},
 								"TEMPUS", crEl('br'),
 								'weather aggregator', crEl('br'),
-								'0.0.4'
+								'0.0.5'
 							))
 							document.title = "About";
 							Title.innerHTML = "About";

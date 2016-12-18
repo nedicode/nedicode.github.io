@@ -1,5 +1,5 @@
-var dataCacheName = 'tempus-v0.0.4';
-var cacheName = 'tempus-0.0.4';
+var dataCacheName = 'tempus-v0.0.5';
+var cacheName = 'tempus-0.0.5';
 var filesToCache = [
 	'index.html',
 	'assets/fonts/material-design-icons/material-icons.css',
